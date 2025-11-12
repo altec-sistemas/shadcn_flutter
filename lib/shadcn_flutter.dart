@@ -30,7 +30,9 @@ export 'package:gap/gap.dart';
 export 'package:phonecodes/phonecodes.dart' show Countries, Country;
 // bundle from skeletonizer https://pub.dev/packages/skeletonizer
 export 'package:skeletonizer/skeletonizer.dart' show Bone, BoneMock;
+export 'dart:ui' show Brightness;
 
+export 'src/polyfill.dart';
 export 'src/animation.dart';
 export 'src/collection.dart';
 export 'src/components/animation.dart';
