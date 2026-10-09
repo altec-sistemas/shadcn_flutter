@@ -1,6 +1,6 @@
 ---
 title: "Class: MenubarState"
-description: "State class for [Menubar] widget."
+description: "State class for [Menubar] widget.   Manages the rendering and theming of the menubar container."
 ---
 
 ```dart
@@ -13,7 +13,7 @@ class MenubarState extends State<Menubar> {
   ///
   /// Parameters:
   /// - [context] (`BuildContext`, required): build context
-  /// - [theme] (`ThemeData`, required): theme data  
+  /// - [theme] (`ThemeData`, required): theme data
   /// - [subMenuOffset] (`Offset?`, optional): offset for submenu positioning
   /// - [border] (`bool`, required): whether to show border
   ///

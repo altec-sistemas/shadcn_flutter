@@ -1,6 +1,6 @@
 ---
 title: "Class: NumberTickerTheme"
-description: "Theme configuration for [NumberTicker] widgets."
+description: "Theme configuration for [NumberTicker] widgets.   Provides default styling values that can be overridden on individual  [NumberTicker] instances. This allows for consistent styling across  multiple number tickers in an application while still permitting  per-instance customization when needed.   Used with [ComponentTheme] to provide theme values throughout the widget tree.   Example:  ```dart  ComponentTheme<NumberTickerTheme>(    data: NumberTickerTheme(      duration: Duration(milliseconds: 800),      curve: Curves.bounceOut,      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),    ),    child: MyApp(),  );  ```"
 ---
 
 ```dart
@@ -24,7 +24,7 @@ description: "Theme configuration for [NumberTicker] widgets."
 ///   child: MyApp(),
 /// );
 /// ```
-class NumberTickerTheme {
+class NumberTickerTheme extends ComponentThemeData {
   /// The default animation duration for number transitions.
   ///
   /// If null, individual [NumberTicker] widgets will use their own duration

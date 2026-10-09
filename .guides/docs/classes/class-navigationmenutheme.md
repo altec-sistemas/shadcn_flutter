@@ -1,6 +1,6 @@
 ---
 title: "Class: NavigationMenuTheme"
-description: "Theme configuration for [NavigationMenu] components."
+description: "Theme configuration for [NavigationMenu] components.   Defines visual properties for navigation menu popovers including  surface appearance, positioning, and spacing. This theme controls  how navigation menu content is displayed when triggered.   The theme can be applied through [ComponentTheme] or passed directly  to individual [NavigationMenu] widgets for customization."
 ---
 
 ```dart
@@ -12,7 +12,7 @@ description: "Theme configuration for [NavigationMenu] components."
 ///
 /// The theme can be applied through [ComponentTheme] or passed directly
 /// to individual [NavigationMenu] widgets for customization.
-class NavigationMenuTheme {
+class NavigationMenuTheme extends ComponentThemeData {
   /// Opacity of the popover surface.
   final double? surfaceOpacity;
   /// Blur amount of the popover surface.
@@ -21,6 +21,10 @@ class NavigationMenuTheme {
   final EdgeInsetsGeometry? margin;
   /// Offset for the popover relative to the trigger.
   final Offset? offset;
+  /// Whether the popover may adapt to a different presentation on mobile
+  /// platforms (see [showOverlay]'s `adaptive` parameter), when not
+  /// overridden per-instance by [NavigationMenu.adaptiveOverlay].
+  final bool? adaptiveOverlay;
   /// Creates a [NavigationMenuTheme] with the specified appearance properties.
   ///
   /// All parameters are optional and will fall back to default values
@@ -32,6 +36,7 @@ class NavigationMenuTheme {
   /// - [surfaceBlur] (double?, optional): Blur effect intensity for popover
   /// - [margin] (EdgeInsetsGeometry?, optional): Space around the popover
   /// - [offset] (Offset?, optional): Position offset relative to trigger
+  /// - [adaptiveOverlay] (bool?, optional): whether `adaptiveConversion` runs for this overlay
   ///
   /// Example:
   /// ```dart
@@ -42,9 +47,9 @@ class NavigationMenuTheme {
   ///   offset: Offset(0, 8),
   /// )
   /// ```
-  const NavigationMenuTheme({this.surfaceOpacity, this.surfaceBlur, this.margin, this.offset});
+  const NavigationMenuTheme({this.surfaceOpacity, this.surfaceBlur, this.margin, this.offset, this.adaptiveOverlay});
   /// Returns a copy of this theme with the given fields replaced.
-  NavigationMenuTheme copyWith({ValueGetter<double?>? surfaceOpacity, ValueGetter<double?>? surfaceBlur, ValueGetter<EdgeInsetsGeometry?>? margin, ValueGetter<Offset?>? offset});
+  NavigationMenuTheme copyWith({ValueGetter<double?>? surfaceOpacity, ValueGetter<double?>? surfaceBlur, ValueGetter<EdgeInsetsGeometry?>? margin, ValueGetter<Offset?>? offset, ValueGetter<bool?>? adaptiveOverlay});
   bool operator ==(Object other);
   int get hashCode;
 }

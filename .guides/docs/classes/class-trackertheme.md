@@ -1,6 +1,6 @@
 ---
 title: "Class: TrackerTheme"
-description: "Theme configuration for [Tracker] components."
+description: "Theme configuration for [Tracker] components.   [TrackerTheme] provides styling options for tracker components including  corner radius, spacing between segments, and segment height. It enables  consistent tracker styling across an application while allowing customization.   Used with [ComponentTheme] to apply theme values throughout the widget tree.   Example:  ```dart  ComponentTheme<TrackerTheme>(    data: TrackerTheme(      radius: 8.0,      gap: 2.0,      itemHeight: 40.0,    ),    child: MyTrackerWidget(),  );  ```"
 ---
 
 ```dart
@@ -23,7 +23,7 @@ description: "Theme configuration for [Tracker] components."
 ///   child: MyTrackerWidget(),
 /// );
 /// ```
-class TrackerTheme {
+class TrackerTheme extends ComponentThemeData {
   /// Corner radius for the tracker container in logical pixels.
   ///
   /// Type: `double?`. Controls the rounding of tracker corners. If null,

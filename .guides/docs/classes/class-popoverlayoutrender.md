@@ -1,6 +1,6 @@
 ---
 title: "Class: PopoverLayoutRender"
-description: "Custom render object for popover layout positioning."
+description: "Custom render object for popover layout positioning.   Handles the low-level layout calculations for positioning popover content  relative to an anchor with automatic constraint adjustments and inversion  when the popover would overflow the viewport."
 ---
 
 ```dart
@@ -10,11 +10,13 @@ description: "Custom render object for popover layout positioning."
 /// relative to an anchor with automatic constraint adjustments and inversion
 /// when the popover would overflow the viewport.
 class PopoverLayoutRender extends RenderShiftedBox {
+  set liveAnchor(RenderBox? Function()? value);
+  set onAnchorLost(VoidCallback? value);
   /// Creates a popover layout render object.
   ///
   /// All parameters control how the popover is positioned and sized relative
   /// to its anchor.
-  PopoverLayoutRender({RenderBox? child, required Alignment alignment, required Offset? position, required Alignment anchorAlignment, required PopoverConstraint widthConstraint, required PopoverConstraint heightConstraint, Size? anchorSize, Offset? offset, EdgeInsets margin = const EdgeInsets.all(8), required double scale, required Alignment scaleAlignment, FilterQuality? filterQuality, bool allowInvertHorizontal = true, bool allowInvertVertical = true});
+  PopoverLayoutRender({RenderBox? child, required Alignment alignment, required Offset? position, required Alignment anchorAlignment, required PopoverConstraint widthConstraint, required PopoverConstraint heightConstraint, Size? anchorSize, Offset? offset, EdgeInsets margin = const EdgeInsets.all(8), required double scale, required Alignment scaleAlignment, FilterQuality? filterQuality, bool allowInvertHorizontal = true, bool allowInvertVertical = true, RenderBox? Function()? liveAnchor, VoidCallback? onAnchorLost});
   Size computeDryLayout(covariant BoxConstraints constraints);
   bool hitTest(BoxHitTestResult result, {required Offset position});
   bool hitTestChildren(BoxHitTestResult result, {required Offset position});
@@ -32,5 +34,6 @@ class PopoverLayoutRender extends RenderShiftedBox {
   /// Returns box constraints with min/max values for width and height.
   BoxConstraints getConstraintsForChild(BoxConstraints constraints);
   void performLayout();
+  void dispose();
 }
 ```

@@ -1,6 +1,6 @@
 ---
 title: "Class: MenuGap"
-description: "Spacing gap between menu items."
+description: "Spacing gap between menu items.   Creates empty vertical or horizontal space within a menu, based on  the menu's direction. Useful for visually grouping related items."
 ---
 
 ```dart
@@ -18,6 +18,6 @@ class MenuGap extends StatelessWidget implements MenuItem {
   const MenuGap(this.size, {super.key});
   Widget build(BuildContext context);
   bool get hasLeading;
-  PopoverController? get popoverController;
+  OverlayController? get overlayController;
 }
 ```

@@ -1,6 +1,6 @@
 ---
 title: "Class: ChipEditingController"
-description: "A text editing controller that supports inline chip widgets."
+description: "A text editing controller that supports inline chip widgets.   Extends [TextEditingController] to manage text with embedded chip objects  represented by special Unicode codepoints from the Private Use Area (U+E000-U+F8FF).  Each chip is mapped to a unique codepoint allowing up to 6400 chips per controller.   Use this when you need to display removable tags or tokens within a text field,  such as email recipients, keywords, or selected items.   Example:  ```dart  final controller = ChipEditingController<String>(    initialChips: ['tag1', 'tag2'],  );  ```"
 ---
 
 ```dart
@@ -35,6 +35,20 @@ class ChipEditingController<T> extends TextEditingController {
   TextSpan buildTextSpan({required BuildContext context, TextStyle? style, required bool withComposing});
   /// Returns the plain text without chip characters.
   String get plainText;
+  /// Returns the spans covered by [selection], with chips as [ChipSpan]s.
+  ///
+  /// Runs of plain text become [TextSpan]s and each chip becomes a
+  /// [ChipSpan] carrying its value. Used to serialize a selection to the
+  /// clipboard so chips copy as their value instead of their placeholder
+  /// codepoint.
+  List<InlineSpan> getSelectionSpans(TextSelection selection);
+  /// Replaces the current selection with the given [spans].
+  ///
+  /// [ChipSpan]s are inserted as chips (registered in the chip map), while
+  /// [TextSpan]s and their text descendants are inserted as plain text. If the
+  /// selection is not valid the spans are appended at the end. Used to
+  /// reconstruct pasted content produced by a [ClipboardHandler].
+  void replaceSelectionWithSpans(List<InlineSpan> spans);
   /// Returns the text at the current cursor position.
   String get textAtCursor;
   /// Inserts a chip at the cursor position by converting the text at cursor.

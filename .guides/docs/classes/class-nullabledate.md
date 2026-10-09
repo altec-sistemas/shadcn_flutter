@@ -1,6 +1,6 @@
 ---
 title: "Class: NullableDate"
-description: "Represents a date with nullable components (year, month, day)."
+description: "Represents a date with nullable components (year, month, day).   Useful for date input scenarios where individual date parts may be  missing or incomplete. Can convert to [DateTime] when all parts are present.   Example:  ```dart  final date = NullableDate(year: 2024, month: 1, day: 15);  print(date.nullableDate); // DateTime(2024, 1, 15)  ```"
 ---
 
 ```dart
@@ -40,7 +40,7 @@ class NullableDate {
   ///
   /// Returns: A new [NullableDate] with updated parts.
   NullableDate copyWith({ValueGetter<int?>? year, ValueGetter<int?>? month, ValueGetter<int?>? day});
-  /// Converts to [DateTime], using 0 for missing parts.
+  /// Converts to [DateTime], using 1 for missing parts (month/day) to avoid year shift.
   ///
   /// Returns: A [DateTime] instance (may be invalid if parts are null/0).
   DateTime get date;
@@ -48,6 +48,15 @@ class NullableDate {
   ///
   /// Returns: A [DateTime] if complete, otherwise null.
   DateTime? get nullableDate;
+  /// Converts to [DateTime] with default values if any part is null.
+  ///
+  /// Parameters:
+  /// - [defaultYear] (`int`, optional): Default year value (0-9999).
+  /// - [defaultMonth] (`int`, optional): Default month value (1-12).
+  /// - [defaultDay] (`int`, optional): Default day value (1-31).
+  ///
+  /// Returns: A [DateTime] instance with non-null parts.
+  DateTime? getDateTime({int? defaultYear = 0, int? defaultMonth = 1, int? defaultDay = 1});
   /// Retrieves the value of a specific date part.
   ///
   /// Parameters:

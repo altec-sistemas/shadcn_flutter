@@ -1,6 +1,6 @@
 ---
 title: "Class: TabsTheme"
-description: "Theme data for customizing [Tabs] widget appearance."
+description: "Theme data for customizing [Tabs] widget appearance.   This class defines the visual properties that can be applied to  [Tabs] widgets, including padding for the container and individual tabs,  background colors, and border radius styling. These properties can be  set at the theme level to provide consistent styling across the application."
 ---
 
 ```dart
@@ -10,7 +10,7 @@ description: "Theme data for customizing [Tabs] widget appearance."
 /// [Tabs] widgets, including padding for the container and individual tabs,
 /// background colors, and border radius styling. These properties can be
 /// set at the theme level to provide consistent styling across the application.
-class TabsTheme {
+class TabsTheme extends ComponentThemeData {
   /// Padding around the entire tabs container.
   ///
   /// Defines the outer spacing for the tabs widget. If `null`,

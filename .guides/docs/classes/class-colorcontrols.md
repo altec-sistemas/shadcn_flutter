@@ -1,6 +1,6 @@
 ---
 title: "Class: ColorControls"
-description: "Widget providing color input controls with multiple color space modes."
+description: "Widget providing color input controls with multiple color space modes.   Displays inputs for editing colors in RGB, HSL, HSV, or HEX formats  with optional alpha channel and eye dropper tool support."
 ---
 
 ```dart
@@ -27,8 +27,14 @@ class ColorControls extends StatelessWidget {
   final bool? enableEyeDropper;
   /// Callback invoked when the eye dropper tool is requested.
   final VoidCallback? onEyeDropperRequested;
+  /// Whether the color history panel is shown.
+  final bool showHistory;
+  /// Callback invoked when the color history panel visibility changes.
+  final ValueChanged<bool>? onShowHistoryChanged;
+  /// Whether to show the color history button.
+  final bool showHistoryButton;
   /// Creates color controls.
-  const ColorControls({super.key, required this.value, this.onChanged, this.onChanging, this.onModeChanged, this.showAlpha = false, this.mode = ColorPickerMode.rgb, this.enableEyeDropper, this.onEyeDropperRequested, this.controlSpacing});
+  const ColorControls({super.key, required this.value, this.onChanged, this.onChanging, this.onModeChanged, this.showAlpha = false, this.mode = ColorPickerMode.rgb, this.enableEyeDropper, this.onEyeDropperRequested, this.controlSpacing, this.showHistory = false, this.onShowHistoryChanged, this.showHistoryButton = true});
   Widget build(BuildContext context);
   /// Builds the input widgets based on the current color picker mode.
   List<Widget> buildInputs(BuildContext context);

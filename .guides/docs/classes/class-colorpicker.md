@@ -1,6 +1,6 @@
 ---
 title: "Class: ColorPicker"
-description: "A comprehensive color picker widget with multiple color mode support."
+description: "A comprehensive color picker widget with multiple color mode support.   [ColorPicker] provides an interactive interface for selecting colors using  various color representation models (RGB, HSL, HSV, HEX). It supports alpha  channel control, eye dropper functionality, and customizable layout.   Features:  - Multiple color modes (RGB, HSL, HSV, HEX)  - Optional alpha/opacity control  - Screen color sampling with eye dropper  - Flexible layout orientation  - Real-time color updates  - Mode switching during use   Example:  ```dart  ColorPicker(    value: ColorDerivative.fromColor(Colors.blue),    onChanged: (color) {      print('Selected: ${color.toColor()}');    },    showAlpha: true,    initialMode: ColorPickerMode.hsv,    enableEyeDropper: true,  )  ```"
 ---
 
 ```dart
@@ -39,6 +39,10 @@ class ColorPicker extends StatefulWidget {
   final ValueChanged<ColorDerivative>? onChanging;
   /// Whether to show alpha (opacity) controls.
   final bool showAlpha;
+  /// Whether to show the color history button.
+  final bool showHistoryButton;
+  /// Whether to show the color history panel initially.
+  final bool initialShowHistory;
   /// The initial color picker mode.
   final ColorPickerMode initialMode;
   /// Called when the color picker mode changes.
@@ -56,7 +60,7 @@ class ColorPicker extends StatefulWidget {
   /// Size of the color sliders.
   final double? sliderSize;
   /// Creates a [ColorPicker] widget.
-  const ColorPicker({super.key, required this.value, this.onChanged, this.onChanging, this.showAlpha = false, this.initialMode = ColorPickerMode.rgb, this.onModeChanged, this.enableEyeDropper, this.onEyeDropperRequested, this.orientation, this.spacing, this.controlSpacing, this.sliderSize});
+  const ColorPicker({super.key, required this.value, this.onChanged, this.onChanging, this.showAlpha = false, this.initialMode = ColorPickerMode.rgb, this.onModeChanged, this.enableEyeDropper, this.onEyeDropperRequested, this.orientation, this.spacing, this.controlSpacing, this.sliderSize, this.showHistoryButton = true, this.initialShowHistory = false});
   State<ColorPicker> createState();
 }
 ```

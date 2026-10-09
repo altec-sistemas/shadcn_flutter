@@ -1,6 +1,6 @@
 ---
 title: "Class: Progress"
-description: "A linear progress indicator that visually represents task completion."
+description: "A linear progress indicator that visually represents task completion.   The Progress widget displays completion status as a horizontal bar that fills  from left to right based on the current progress value. Supports both  determinate progress (with specific values) and indeterminate progress  (continuous animation when value is null).   Built on top of [LinearProgressIndicator], this component provides enhanced  theming capabilities and integrates seamlessly with the design system.  Progress values are automatically normalized between configurable min/max  bounds with built-in validation to ensure values remain within range.   Key features:  - Flexible progress range with custom min/max values  - Automatic value normalization and validation  - Smooth animations with optional animation disable  - Comprehensive theming support via [ProgressTheme]  - Responsive scaling based on theme configuration  - Indeterminate progress support for unknown durations   Example:  ```dart  Progress(    progress: 0.65,    color: Colors.blue,    backgroundColor: Colors.grey.shade300,  );  ```"
 ---
 
 ```dart
@@ -79,7 +79,7 @@ class Progress extends StatelessWidget {
   /// Parameters:
   /// - [progress] (double?, optional): Current progress value or null for indeterminate
   /// - [min] (double, default: 0.0): Minimum progress value
-  /// - [max] (double, default: 1.0): Maximum progress value  
+  /// - [max] (double, default: 1.0): Maximum progress value
   /// - [disableAnimation] (bool, default: false): Whether to disable smooth transitions
   /// - [color] (Color?, optional): Progress fill color override
   /// - [backgroundColor] (Color?, optional): Progress track color override

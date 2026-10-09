@@ -1,6 +1,6 @@
 ---
 title: "Class: ObjectFormField"
-description: "A form field widget for complex object values."
+description: "A form field widget for complex object values.   [ObjectFormField] provides a button-like trigger that opens an editor  (in a dialog or popover) for selecting/editing complex values. The field  displays the selected value using a custom builder.   Useful for date pickers, color pickers, file selectors, and other  complex input scenarios where a simple text field isn't sufficient.   Example:  ```dart  ObjectFormField<DateTime>(    value: selectedDate,    placeholder: Text('Select date'),    builder: (context, date) => Text(formatDate(date)),    editorBuilder: (context, handler) => CalendarWidget(),    mode: PromptMode.dialog,  )  ```"
 ---
 
 ```dart
@@ -40,9 +40,20 @@ class ObjectFormField<T> extends StatefulWidget {
   final PromptMode mode;
   /// Builds the editor widget.
   final Widget Function(BuildContext context, ObjectFormHandler<T> handler) editorBuilder;
-  /// Popover alignment relative to the trigger.
+  /// Overrides the [OverlayConfiguration] used to present the popover editor
+  /// (only relevant when [mode] is [PromptMode.popover]). When null, a
+  /// default [PopoverConfiguration] is used, positioned via [popoverAlignment]
+  /// / [popoverAnchorAlignment].
+  final OverlayConfiguration? overlayConfiguration;
+  /// Whether the popover/dialog editor may adapt to a different presentation
+  /// on mobile platforms (see [showOverlay]'s `adaptive` parameter). Defaults
+  /// to `true` when null.
+  final bool? adaptiveOverlay;
+  /// Popover alignment relative to the trigger. Ignored when
+  /// [overlayConfiguration] is set.
   final AlignmentGeometry? popoverAlignment;
-  /// Anchor alignment for popover positioning.
+  /// Anchor alignment for popover positioning. Ignored when
+  /// [overlayConfiguration] is set.
   final AlignmentGeometry? popoverAnchorAlignment;
   /// Padding inside the popover.
   final EdgeInsetsGeometry? popoverPadding;
@@ -60,8 +71,11 @@ class ObjectFormField<T> extends StatefulWidget {
   final bool? enabled;
   /// Whether to show the field decoration.
   final bool decorate;
+  /// Whether to inform value change callback immediately upon user interaction with the editor.
+  /// If null, defaults to true for popover mode and false for dialog mode.
+  final bool? immediateValueChange;
   /// Creates an [ObjectFormField].
-  const ObjectFormField({super.key, required this.value, this.onChanged, required this.placeholder, required this.builder, this.leading, this.trailing, this.mode = PromptMode.dialog, required this.editorBuilder, this.popoverAlignment, this.popoverAnchorAlignment, this.popoverPadding, this.dialogTitle, this.size, this.density, this.shape, this.dialogActions, this.enabled, this.decorate = true});
+  const ObjectFormField({super.key, required this.value, this.onChanged, required this.placeholder, required this.builder, this.leading, this.trailing, this.mode = PromptMode.dialog, required this.editorBuilder, this.overlayConfiguration, this.adaptiveOverlay, this.popoverAlignment, this.popoverAnchorAlignment, this.popoverPadding, this.dialogTitle, this.size, this.density, this.shape, this.dialogActions, this.enabled, this.decorate = true, this.immediateValueChange});
   State<ObjectFormField<T>> createState();
 }
 ```

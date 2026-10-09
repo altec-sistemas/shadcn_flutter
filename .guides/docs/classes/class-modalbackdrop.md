@@ -1,6 +1,6 @@
 ---
 title: "Class: ModalBackdrop"
-description: "A visual backdrop widget that creates modal-style overlays."
+description: "A visual backdrop widget that creates modal-style overlays.   Creates a semi-transparent barrier behind modal content with support for  custom colors, clipping, and animation. The backdrop can be configured  to prevent interaction with content below when modal behavior is enabled.   Features:  - Customizable barrier color and opacity  - Surface clipping for visual effects  - Animation support with fade transitions  - Configurable modal behavior  - Theme integration   Example:  ```dart  ModalBackdrop(    barrierColor: Colors.black54,    borderRadius: BorderRadius.circular(12),    modal: true,    child: MyDialogContent(),  )  ```"
 ---
 
 ```dart
@@ -54,7 +54,7 @@ class ModalBackdrop extends StatelessWidget {
   /// Parameters:
   /// - [child] (Widget, required): content widget displayed above backdrop
   /// - [modal] (bool?, optional): enables modal behavior, defaults to true
-  /// - [surfaceClip] (bool?, optional): enables surface clipping, defaults to true  
+  /// - [surfaceClip] (bool?, optional): enables surface clipping, defaults to true
   /// - [borderRadius] (BorderRadiusGeometry?, optional): corner radius for cutout
   /// - [barrierColor] (Color?, optional): backdrop color, defaults to black with 80% opacity
   /// - [padding] (EdgeInsetsGeometry?, optional): padding around child

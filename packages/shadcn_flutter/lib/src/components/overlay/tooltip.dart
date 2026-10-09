@@ -1,0 +1,443 @@
+import 'package:shadcn_flutter/src/components/control/hover.dart';
+
+import '../../../shadcn_flutter.dart';
+
+/// Theme data for customizing [TooltipContainer] widget appearance.
+///
+/// This class defines the visual properties that can be applied to
+/// tooltip containers, including surface effects, padding, colors,
+/// and border styling. These properties can be set at the theme level
+/// to provide consistent styling across the application.
+class TooltipTheme extends ComponentThemeData {
+  /// Opacity applied to the tooltip surface color.
+  final double? surfaceOpacity;
+
+  /// Blur amount for the tooltip surface.
+  final double? surfaceBlur;
+
+  /// Padding around the tooltip content.
+  final EdgeInsetsGeometry? padding;
+
+  /// Background color of the tooltip.
+  final Color? backgroundColor;
+
+  /// Border radius of the tooltip container.
+  final BorderRadiusGeometry? borderRadius;
+
+  /// Creates a [TooltipTheme].
+  const TooltipTheme({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.padding,
+    this.backgroundColor,
+    this.borderRadius,
+  });
+
+  /// Creates a copy of this theme but with the given fields replaced.
+  TooltipTheme copyWith({
+    ValueGetter<double?>? surfaceOpacity,
+    ValueGetter<double?>? surfaceBlur,
+    ValueGetter<EdgeInsetsGeometry?>? padding,
+    ValueGetter<Color?>? backgroundColor,
+    ValueGetter<BorderRadiusGeometry?>? borderRadius,
+  }) {
+    return TooltipTheme(
+      surfaceOpacity: surfaceOpacity == null
+          ? this.surfaceOpacity
+          : surfaceOpacity(),
+      surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
+      padding: padding == null ? this.padding : padding(),
+      backgroundColor: backgroundColor == null
+          ? this.backgroundColor
+          : backgroundColor(),
+      borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is TooltipTheme &&
+        other.surfaceOpacity == surfaceOpacity &&
+        other.surfaceBlur == surfaceBlur &&
+        other.padding == padding &&
+        other.backgroundColor == backgroundColor &&
+        other.borderRadius == borderRadius;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    surfaceOpacity,
+    surfaceBlur,
+    padding,
+    backgroundColor,
+    borderRadius,
+  );
+}
+
+/// A styled container widget for tooltip content.
+///
+/// Provides consistent visual styling for tooltip popups with customizable
+/// background, opacity, blur, padding, and border radius. Integrates with
+/// the tooltip theme system while allowing per-instance overrides.
+class TooltipContainer extends StatelessWidget
+    implements Styleable<TooltipTheme> {
+  /// The tooltip content widget.
+  final Widget child;
+
+  /// Opacity applied to the background surface (0.0 to 1.0).
+  final double? surfaceOpacity;
+
+  /// Blur radius applied to the background surface.
+  final double? surfaceBlur;
+
+  /// Padding around the tooltip content.
+  @Deprecated('Use theme: TooltipTheme(padding: ...) instead.')
+  final EdgeInsetsGeometry? padding;
+
+  /// Background color of the tooltip container.
+  @Deprecated('Use theme: TooltipTheme(backgroundColor: ...) instead.')
+  final Color? backgroundColor;
+
+  /// Border radius for rounded corners.
+  @Deprecated('Use theme: TooltipTheme(borderRadius: ...) instead.')
+  final BorderRadiusGeometry? borderRadius;
+
+  /// {@macro shadcn_flutter.Styleable.theme}
+  @override
+  final TooltipTheme? theme;
+
+  /// Creates a [TooltipContainer].
+  ///
+  /// All styling parameters are optional and fall back to theme defaults.
+  ///
+  /// Parameters:
+  /// - [child] (`Widget`, required): Content to display in the tooltip.
+  /// - [surfaceOpacity] (`double?`, optional): Background opacity (0.0-1.0).
+  /// - [surfaceBlur] (`double?`, optional): Background blur radius.
+  /// - [padding] (`EdgeInsetsGeometry?`, optional): Content padding.
+  /// - [backgroundColor] (`Color?`, optional): Background color.
+  /// - [borderRadius] (`BorderRadiusGeometry?`, optional): Border radius.
+  ///
+  /// Example:
+  /// ```dart
+  /// TooltipContainer(
+  ///   surfaceOpacity: 0.9,
+  ///   padding: EdgeInsets.all(8),
+  ///   backgroundColor: Colors.black,
+  ///   borderRadius: BorderRadius.circular(4),
+  ///   child: Text('Tooltip text'),
+  /// )
+  /// ```
+  const TooltipContainer({
+    super.key,
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.padding,
+    this.backgroundColor,
+    this.borderRadius,
+    required this.child,
+    this.theme,
+  });
+
+  /// Builds the tooltip container.
+  ///
+  /// This allows using the widget as a builder function.
+  Widget call(BuildContext context) {
+    return this;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaling = theme.scaling;
+    final densityGap = theme.density.baseGap * scaling;
+    final densityContentPadding = theme.density.baseContentPadding * scaling;
+    final compTheme =
+        this.theme ?? ComponentTheme.maybeOf<TooltipTheme>(context);
+    Color backgroundColor = styleValue(
+      widgetValue: this.backgroundColor,
+      themeValue: compTheme?.backgroundColor,
+      defaultValue: theme.colorScheme.primary,
+    );
+    var surfaceOpacity = this.surfaceOpacity ?? compTheme?.surfaceOpacity;
+    var surfaceBlur = this.surfaceBlur ?? compTheme?.surfaceBlur;
+    if (surfaceOpacity != null) {
+      backgroundColor = backgroundColor.scaleAlpha(surfaceOpacity);
+    }
+    final padding = styleValue(
+      widgetValue: this.padding,
+      themeValue: compTheme?.padding,
+      defaultValue: EdgeInsets.symmetric(
+        horizontal: densityContentPadding * 0.75,
+        vertical: densityGap * 0.75,
+      ),
+    );
+    final resolvedPadding = resolveEdgeInsets(
+      padding,
+      densityContentPadding,
+    ).resolve(Directionality.of(context));
+    final borderRadius = styleValue(
+      widgetValue: this.borderRadius,
+      themeValue: compTheme?.borderRadius,
+      defaultValue: BorderRadius.circular(theme.radiusSm),
+    );
+    Widget animatedContainer = Container(
+      padding: resolvedPadding,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: borderRadius,
+      ),
+      child: child.xSmall().primaryForeground(),
+    );
+    if (surfaceBlur != null && surfaceBlur > 0) {
+      animatedContainer = SurfaceBlur(
+        surfaceBlur: surfaceBlur,
+        borderRadius: borderRadius,
+        child: animatedContainer,
+      );
+    }
+    return Padding(
+      padding: EdgeInsets.all(densityGap * 0.75),
+      child: animatedContainer,
+    );
+  }
+}
+
+/// An interactive tooltip widget that displays contextual information on hover.
+///
+/// [Tooltip] provides contextual help and information by displaying a small overlay
+/// when users hover over or interact with the child widget. It supports configurable
+/// positioning, timing, and custom content through builder functions, making it
+/// ideal for providing additional context without cluttering the interface.
+///
+/// Key features:
+/// - Hover-activated tooltip display with configurable delays
+/// - Flexible positioning with alignment and anchor point control
+/// - Custom content through builder functions
+/// - Duration controls for show/hide timing and minimum display time
+/// - Smooth animations and transitions
+/// - Integration with the overlay system for proper z-ordering
+/// - Theme support for consistent styling
+/// - Automatic positioning adjustment to stay within screen bounds
+///
+/// Timing behavior:
+/// - Wait duration: Time to wait before showing tooltip on hover
+/// - Show duration: Animation time for tooltip appearance
+/// - Min duration: Minimum time tooltip stays visible once shown
+/// - Auto-hide: Tooltip disappears when hover ends (after min duration)
+///
+/// The tooltip uses a popover-based implementation that ensures proper layering
+/// and positioning relative to the trigger widget. The positioning system
+/// automatically adjusts to keep tooltips within the viewport.
+///
+/// Example:
+/// ```dart
+/// Tooltip(
+///   tooltip: (context) => TooltipContainer(
+///     child: Text('This button performs a critical action'),
+///   ),
+///   waitDuration: Duration(milliseconds: 800),
+///   showDuration: Duration(milliseconds: 150),
+///   alignment: Alignment.topCenter,
+///   anchorAlignment: Alignment.bottomCenter,
+///   child: IconButton(
+///     icon: Icon(LucideIcons.triangleAlert),
+///     onPressed: () => _handleCriticalAction(),
+///   ),
+/// );
+/// ```
+class Tooltip extends StatefulWidget {
+  /// The widget that triggers the tooltip on hover.
+  final Widget child;
+
+  /// Builder function for the tooltip content.
+  final WidgetBuilder tooltip;
+
+  /// Alignment of the tooltip relative to the anchor.
+  final AlignmentGeometry alignment;
+
+  /// Alignment point on the child widget where tooltip anchors.
+  final AlignmentGeometry anchorAlignment;
+
+  /// Time to wait before showing the tooltip on hover.
+  final Duration waitDuration;
+
+  /// Duration of the tooltip show animation.
+  final Duration showDuration;
+
+  /// Minimum time the tooltip stays visible once shown.
+  final Duration minDuration;
+
+  /// Whether this tooltip may adapt to a different presentation on mobile
+  /// platforms (see [showOverlay]'s `adaptive` parameter). Defaults to
+  /// `false` — a tooltip should never become a bottom drawer; its own
+  /// simplified fixed-position mobile presentation ([TooltipConfiguration])
+  /// always applies regardless of this flag.
+  final bool adaptiveOverlay;
+
+  /// Creates a [Tooltip].
+  ///
+  /// Parameters:
+  /// - [child] (`Widget`, required): Widget that triggers the tooltip.
+  /// - [tooltip] (`WidgetBuilder`, required): Builder for tooltip content.
+  /// - [alignment] (`AlignmentGeometry`, default: `Alignment.topCenter`): Tooltip position.
+  /// - [anchorAlignment] (`AlignmentGeometry`, default: `Alignment.bottomCenter`): Anchor point on child.
+  /// - [waitDuration] (`Duration`, default: 500ms): Delay before showing.
+  /// - [showDuration] (`Duration`, default: 200ms): Animation duration.
+  /// - [minDuration] (`Duration`, default: 0ms): Minimum visible time.
+  /// - [adaptiveOverlay] (`bool`, default: `false`): whether `adaptiveConversion` runs for this overlay.
+  const Tooltip({
+    super.key,
+    required this.child,
+    required this.tooltip,
+    this.alignment = Alignment.topCenter,
+    this.anchorAlignment = Alignment.bottomCenter,
+    this.waitDuration = const Duration(milliseconds: 500),
+    this.showDuration = const Duration(milliseconds: 200),
+    this.minDuration = const Duration(milliseconds: 0),
+    this.adaptiveOverlay = false,
+  });
+
+  @override
+  State<Tooltip> createState() => _TooltipState();
+}
+
+class _TooltipState extends State<Tooltip> {
+  final OverlayController _controller = OverlayController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Hover(
+      onHover: (hovered) {
+        if (hovered) {
+          if (!mounted) return;
+          _controller.show(
+            context,
+            TooltipConfiguration(
+              alignment: widget.alignment,
+              anchorAlignment: widget.anchorAlignment,
+            ),
+            builder: (context) {
+              return widget.tooltip(context);
+            },
+            adaptive: widget.adaptiveOverlay,
+          );
+        } else {
+          _controller.close();
+        }
+      },
+      theme: HoverTheme(
+        waitDuration: widget.waitDuration,
+        minDuration: widget.minDuration,
+        showDuration: widget.showDuration,
+      ),
+      child: widget.child,
+    );
+  }
+}
+
+/// A tooltip that shows immediately on hover without delay.
+///
+/// Unlike [Tooltip], this widget displays the tooltip instantly when the
+/// mouse enters the child widget area. It's useful for situations where
+/// immediate feedback is desired, such as toolbar buttons or icon-only
+/// controls where labels need to be visible right away.
+///
+/// The tooltip automatically closes when the mouse leaves the widget.
+class InstantTooltip extends StatefulWidget {
+  /// The widget that triggers the tooltip on hover.
+  final Widget child;
+
+  /// How to behave during hit testing.
+  final HitTestBehavior behavior;
+
+  /// Builder function for the tooltip content.
+  final WidgetBuilder tooltipBuilder;
+
+  /// Alignment of the tooltip relative to the anchor.
+  final AlignmentGeometry tooltipAlignment;
+
+  /// Alignment point on the child widget where tooltip anchors.
+  final AlignmentGeometry? tooltipAnchorAlignment;
+
+  /// Whether this tooltip may adapt to a different presentation on mobile
+  /// platforms (see [showOverlay]'s `adaptive` parameter). Defaults to
+  /// `false` — see [Tooltip.adaptiveOverlay].
+  final bool adaptiveOverlay;
+
+  /// Creates an [InstantTooltip].
+  ///
+  /// Parameters:
+  /// - [child] (`Widget`, required): Widget that triggers the tooltip.
+  /// - [tooltipBuilder] (`WidgetBuilder`, required): Builder for tooltip content.
+  /// - [behavior] (`HitTestBehavior`, default: `HitTestBehavior.translucent`): Hit test behavior.
+  /// - [tooltipAlignment] (`AlignmentGeometry`, default: `Alignment.bottomCenter`): Tooltip position.
+  /// - [tooltipAnchorAlignment] (`AlignmentGeometry?`, optional): Anchor point on child.
+  /// - [adaptiveOverlay] (`bool`, default: `false`): whether `adaptiveConversion` runs for this overlay.
+  ///
+  /// Example:
+  /// ```dart
+  /// InstantTooltip(
+  ///   tooltipBuilder: (context) => Text('Help text'),
+  ///   child: Icon(LucideIcons.circleHelp),
+  /// )
+  /// ```
+  const InstantTooltip({
+    super.key,
+    required this.child,
+    required this.tooltipBuilder,
+    this.behavior = HitTestBehavior.translucent,
+    this.tooltipAlignment = Alignment.bottomCenter,
+    this.tooltipAnchorAlignment,
+    this.adaptiveOverlay = false,
+  });
+
+  @override
+  State<InstantTooltip> createState() => _InstantTooltipState();
+}
+
+class _InstantTooltipState extends State<InstantTooltip> {
+  final OverlayController _controller = OverlayController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (event) {
+        _controller.close(true);
+        _controller.show(
+          context,
+          TooltipConfiguration(
+            alignment: widget.tooltipAlignment,
+            anchorAlignment: widget.tooltipAnchorAlignment,
+            showDuration: Duration.zero,
+            dismissDuration: Duration.zero,
+          ),
+          builder: widget.tooltipBuilder,
+          adaptive: widget.adaptiveOverlay,
+        );
+      },
+      onExit: (event) {
+        _controller.close();
+      },
+      hitTestBehavior: widget.behavior,
+      child: widget.child,
+    );
+  }
+}
+
+// Tooltip overlays are presented via [TooltipConfiguration] (see
+// overlay_configuration.dart), which owns both the desktop (real popover,
+// non-modal) and mobile (simplified, fixed-position) presentation directly.

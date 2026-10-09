@@ -1,6 +1,6 @@
 ---
 title: "Class: MenuCheckbox"
-description: "Checkbox menu item with checked/unchecked state."
+description: "Checkbox menu item with checked/unchecked state.   Displays a checkmark when selected. Used for togglable menu options.   Example:  ```dart  MenuCheckbox(    value: showToolbar,    onChanged: (context, value) => setState(() => showToolbar = value),    child: Text('Show Toolbar'),  )  ```"
 ---
 
 ```dart
@@ -40,7 +40,7 @@ class MenuCheckbox extends StatelessWidget implements MenuItem {
   /// - [autoClose] (bool): Whether to auto-close menu, defaults to true
   const MenuCheckbox({super.key, this.value = false, this.onChanged, required this.child, this.trailing, this.enabled = true, this.autoClose = true});
   bool get hasLeading;
-  PopoverController? get popoverController;
+  OverlayController? get overlayController;
   Widget build(BuildContext context);
 }
 ```

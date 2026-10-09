@@ -1,6 +1,6 @@
 ---
 title: "Class: Table"
-description: "A flexible table widget with support for spanning, scrolling, and interactive features."
+description: "A flexible table widget with support for spanning, scrolling, and interactive features.   [Table] provides a comprehensive table component with advanced layout capabilities  including cell spanning, flexible sizing, frozen cells, scrolling, and rich theming.  It supports both simple data tables and complex layouts with header/footer rows.   ## Key Features  - **Cell Spanning**: Support for colspan and rowspan across multiple cells  - **Flexible Sizing**: Multiple sizing strategies (fixed, flex, intrinsic) for columns/rows  - **Frozen Cells**: Ability to freeze specific cells during scrolling  - **Interactive States**: Hover effects and selection states with visual feedback  - **Scrolling**: Optional horizontal and vertical scrolling with viewport control  - **Theming**: Comprehensive theming system for visual customization   ## Layout System  The table uses a sophisticated layout system that handles:  - Variable column widths via [TableSize] strategies  - Dynamic row heights based on content  - Complex cell spanning calculations  - Efficient rendering with viewport culling   ## Sizing Strategies  - [FlexTableSize]: Proportional sizing like CSS flex  - [FixedTableSize]: Absolute pixel sizes  - [IntrinsicTableSize]: Size based on content   Example:  ```dart  Table(    rows: [      TableHeader(cells: [        TableCell(child: Text('Name')),        TableCell(child: Text('Age')),        TableCell(child: Text('City')),      ]),      TableRow(cells: [        TableCell(child: Text('John Doe')),        TableCell(child: Text('25')),        TableCell(child: Text('New York')),      ]),    ],    columnWidths: {      0: FlexTableSize(flex: 2),      1: FixedTableSize(width: 80),      2: FlexTableSize(flex: 1),    },  );  ```"
 ---
 
 ```dart
@@ -55,10 +55,10 @@ description: "A flexible table widget with support for spanning, scrolling, and 
 class Table extends StatefulWidget {
   /// List of rows to display in the table.
   ///
-  /// Type: `List<TableRow>`. Contains the table data organized as rows.
+  /// Type: `List<TableRow>?`. Contains the table data organized as rows.
   /// Can include [TableRow], [TableHeader], and [TableFooter] instances.
   /// Each row contains a list of [TableCell] widgets.
-  final List<TableRow> rows;
+  final List<TableRow>? rows;
   /// Default sizing strategy for all columns.
   ///
   /// Type: `TableSize`. Used when no specific width is provided in
@@ -109,6 +109,28 @@ class Table extends StatefulWidget {
   /// Type: `Size?`. When provided with scroll offsets, constrains the
   /// visible area of the table. Essential for scrolling behavior.
   final Size? viewportSize;
+  /// Optional controller for vertical scrolling owned by this [Table].
+  ///
+  /// When provided, the table wraps itself in a [ScrollableClient] and
+  /// drives [verticalOffset]/[viewportSize] internally from this
+  /// controller instead of requiring the caller to wire up their own
+  /// [ScrollableClient]/[Scrollable] and pass [verticalOffset] manually.
+  /// If both this and [verticalOffset] are provided, [verticalOffset] is
+  /// ignored for the vertical axis.
+  final ScrollController? verticalController;
+  /// Optional controller for horizontal scrolling owned by this [Table].
+  ///
+  /// Same semantics as [verticalController], for the horizontal axis.
+  final ScrollController? horizontalController;
+  /// The direction columns run in.
+  ///
+  /// Defaults to the ambient [Directionality]. Column indices are always
+  /// logical — [columnWidths] key 0, [FrozenTableData.frozenColumns] index 0
+  /// and [TableRow.cells] position 0 all refer to the first column — so under
+  /// [TextDirection.rtl] that column is laid out at the right edge, frozen
+  /// columns pin to the right, and horizontal scrolling starts there and runs
+  /// leftwards.
+  final TextDirection? textDirection;
   /// Creates a [Table] widget.
   ///
   /// The table displays data organized in rows and cells with flexible
@@ -126,6 +148,8 @@ class Table extends StatefulWidget {
   /// - [horizontalOffset] (double?, optional): Horizontal scroll position
   /// - [verticalOffset] (double?, optional): Vertical scroll position
   /// - [viewportSize] (Size?, optional): Viewport size constraints
+  /// - [textDirection] (TextDirection?, optional): Direction columns run in;
+  ///   defaults to the ambient [Directionality]
   ///
   /// Example:
   /// ```dart
@@ -137,7 +161,7 @@ class Table extends StatefulWidget {
   ///   columnWidths: {0: FixedTableSize(width: 200)},
   /// );
   /// ```
-  const Table({super.key, required this.rows, this.defaultColumnWidth = const FlexTableSize(), this.defaultRowHeight = const IntrinsicTableSize(), this.columnWidths, this.rowHeights, this.clipBehavior = Clip.hardEdge, this.theme, this.frozenCells, this.horizontalOffset, this.verticalOffset, this.viewportSize});
+  const Table({super.key, required this.rows, this.defaultColumnWidth = const FlexTableSize(), this.defaultRowHeight = const IntrinsicTableSize(), this.columnWidths, this.rowHeights, this.clipBehavior = Clip.hardEdge, this.theme, this.frozenCells, this.horizontalOffset, this.verticalOffset, this.viewportSize, this.verticalController, this.horizontalController, this.textDirection});
   State<Table> createState();
 }
 ```

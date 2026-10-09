@@ -1,6 +1,6 @@
 ---
 title: "Class: AlertTheme"
-description: "Theme configuration for [Alert] components."
+description: "Theme configuration for [Alert] components.   Provides visual styling properties for alert components including padding,  background color, and border color. These properties can be overridden at  the widget level or applied globally via [ComponentTheme].   The theme integrates with the overall design system by using appropriate  color schemes and scaling factors from [ThemeData]."
 ---
 
 ```dart
@@ -12,7 +12,7 @@ description: "Theme configuration for [Alert] components."
 ///
 /// The theme integrates with the overall design system by using appropriate
 /// color schemes and scaling factors from [ThemeData].
-class AlertTheme {
+class AlertTheme extends ComponentThemeData {
   /// The internal padding around the alert content.
   ///
   /// Type: `EdgeInsetsGeometry?`. If null, uses default padding based on scaling.

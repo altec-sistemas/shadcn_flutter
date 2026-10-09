@@ -1,6 +1,6 @@
 ---
 title: "Class: ColorShades"
-description: "A collection of color shades from light to dark."
+description: "A collection of color shades from light to dark.   Implements both [Color] and [ColorSwatch] to provide a primary color  and access to different shade values (50, 100, 200, ..., 950)."
 ---
 
 ```dart
@@ -85,5 +85,7 @@ class ColorShades implements Color, ColorSwatch {
   double get r;
   Color withValues({double? alpha, double? red, double? green, double? blue, ColorSpace? colorSpace});
   int toARGB32();
+  int get hashCode;
+  bool operator ==(Object other);
 }
 ```

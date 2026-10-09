@@ -1,6 +1,6 @@
 ---
 title: "Class: PhoneInput"
-description: "A specialized input widget for entering international phone numbers."
+description: "A specialized input widget for entering international phone numbers.   This widget provides a comprehensive phone number input interface with  country selection, automatic formatting, and validation. It displays a  country flag, country code, and a text field for the phone number,  handling the complexities of international phone number formats.   The component automatically filters input to ensure only valid phone  number characters are entered, and provides a searchable country  selector popup for easy country selection. It integrates with the form  system to provide phone number validation and data collection.   Example:  ```dart  PhoneInput(    initialCountry: Country.unitedStates,    onChanged: (phoneNumber) {      print('Phone: ${phoneNumber.fullNumber}');      print('Country: ${phoneNumber.country.name}');    },    searchPlaceholder: Text('Search countries...'),  );  ```"
 ---
 
 ```dart
@@ -45,7 +45,7 @@ class PhoneInput extends StatefulWidget {
   /// Called whenever the user changes either the country selection or
   /// the phone number text. The callback receives a [PhoneNumber] object
   /// containing both the selected country and entered number.
-  final ValueChanged<PhoneNumber>? onChanged;
+  final ValueChanged<PhoneNumber?>? onChanged;
   /// Optional text editing controller for the number input field.
   ///
   /// When provided, this controller manages the text content of the phone
@@ -107,7 +107,7 @@ class PhoneInput extends StatefulWidget {
   ///   onChanged: (phone) => _validatePhoneNumber(phone),
   /// );
   /// ```
-  const PhoneInput({super.key, this.initialCountry, this.initialValue, this.onChanged, this.controller, this.filterPlusCode = true, this.filterZeroCode = true, this.filterCountryCode = true, this.onlyNumber = true, this.countries, this.searchPlaceholder});
+  const PhoneInput({super.key, this.initialCountry, this.initialValue, this.onChanged, this.controller, @Deprecated('Plus code is now mandatory') this.filterPlusCode = true, @Deprecated('Plus code is now mandatory, leading zero is not a valid format') this.filterZeroCode = true, @Deprecated('Country code is now determined from input') this.filterCountryCode = true, this.onlyNumber = true, this.countries, this.searchPlaceholder});
   State<PhoneInput> createState();
 }
 ```

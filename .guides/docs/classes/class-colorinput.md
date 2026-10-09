@@ -1,6 +1,6 @@
 ---
 title: "Class: ColorInput"
-description: "A color input widget that allows users to select and edit colors."
+description: "A color input widget that allows users to select and edit colors.   [ColorInput] provides a comprehensive color selection interface with support  for multiple color spaces (HSV, HSL), alpha channel control, and eye dropper  functionality. The widget can be displayed in a popover or modal dialog.   The color picker supports:  - Multiple color representation modes (HSV, HSL)  - Optional alpha/opacity control  - Screen color sampling with eye dropper  - Customizable layout orientation  - Flexible positioning via popovers or dialogs   Example:  ```dart  ColorInput(    value: ColorDerivative.fromColor(Colors.blue),    onChanged: (color) {      print('Selected color: ${color.toColor()}');    },    showAlpha: true,    enableEyeDropper: true,  )  ```"
 ---
 
 ```dart
@@ -59,8 +59,10 @@ class ColorInput extends StatefulWidget {
   final bool? enabled;
   /// The layout orientation of the color input.
   final Axis? orientation;
+  /// Whether to show the color history button.
+  final bool showHistory;
   /// Creates a [ColorInput] widget.
-  const ColorInput({super.key, required this.value, this.onChanging, this.onChanged, this.showAlpha, this.initialMode, this.enableEyeDropper = true, this.popoverAlignment, this.popoverAnchorAlignment, this.popoverPadding, this.placeholder, this.promptMode, this.dialogTitle, this.showLabel, this.orientation, this.enabled});
+  const ColorInput({super.key, required this.value, this.onChanging, this.onChanged, this.showAlpha, this.initialMode, this.enableEyeDropper = true, this.popoverAlignment, this.popoverAnchorAlignment, this.popoverPadding, this.placeholder, this.promptMode, this.dialogTitle, this.showLabel, this.orientation, this.enabled, this.showHistory = true});
   State<ColorInput> createState();
 }
 ```

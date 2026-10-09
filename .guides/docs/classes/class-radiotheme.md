@@ -1,6 +1,6 @@
 ---
 title: "Class: RadioTheme"
-description: "Theme data for customizing [Radio] widget appearance."
+description: "Theme data for customizing [Radio] widget appearance.   This class defines the visual properties that can be applied to  [Radio] widgets, including colors for different states and sizing.  These properties can be set at the theme level to provide consistent  styling across the application.   The theme affects the radio button's visual appearance in both  selected and unselected states, including border, background,  and active indicator colors."
 ---
 
 ```dart
@@ -14,7 +14,7 @@ description: "Theme data for customizing [Radio] widget appearance."
 /// The theme affects the radio button's visual appearance in both
 /// selected and unselected states, including border, background,
 /// and active indicator colors.
-class RadioTheme {
+class RadioTheme extends ComponentThemeData {
   /// Color of the radio indicator when selected.
   final Color? activeColor;
   /// Border color of the radio button.
