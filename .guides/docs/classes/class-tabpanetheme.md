@@ -1,6 +1,6 @@
 ---
 title: "Class: TabPaneTheme"
-description: "Theme configuration for [TabPane] appearance and layout."
+description: "Theme configuration for [TabPane] appearance and layout.   TabPaneTheme defines the visual styling for tab pane components including  borders, background colors, dimensions, and corner rounding. All properties  are optional and fall back to theme defaults when not specified.   Example:  ```dart  ComponentTheme<TabPaneTheme>(    data: TabPaneTheme(      borderRadius: BorderRadius.circular(12),      backgroundColor: Colors.white,      border: BorderSide(color: Colors.grey),      barHeight: 40.0,    ),    child: TabPane(...),  )  ```  Theme for [TabPane]."
 ---
 
 ```dart
@@ -23,7 +23,7 @@ description: "Theme configuration for [TabPane] appearance and layout."
 /// )
 /// ```
 /// Theme for [TabPane].
-class TabPaneTheme {
+class TabPaneTheme extends ComponentThemeData {
   /// Border radius for the tab pane container and individual tabs.
   ///
   /// Type: `BorderRadiusGeometry?`. If null, uses the theme's large border radius.

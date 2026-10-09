@@ -1,6 +1,6 @@
 ---
 title: "Class: CircularProgressIndicatorTheme"
-description: "Theme configuration for [CircularProgressIndicator] components."
+description: "Theme configuration for [CircularProgressIndicator] components.   Provides visual styling properties for circular progress indicators including  colors, sizing, and stroke characteristics. These properties integrate with  the design system and can be overridden at the widget level.   All theme values respect the current theme's scaling factor and color scheme  for consistent visual presentation across different screen densities and themes."
 ---
 
 ```dart
@@ -12,7 +12,7 @@ description: "Theme configuration for [CircularProgressIndicator] components."
 ///
 /// All theme values respect the current theme's scaling factor and color scheme
 /// for consistent visual presentation across different screen densities and themes.
-class CircularProgressIndicatorTheme {
+class CircularProgressIndicatorTheme extends ComponentThemeData {
   /// The primary color of the progress indicator arc.
   ///
   /// Type: `Color?`. If null, uses theme's primary color or background color

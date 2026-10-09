@@ -1,6 +1,6 @@
 ---
 title: "Class: RenderTableLayout"
-description: "Custom render object for laying out table cells with advanced features."
+description: "Custom render object for laying out table cells with advanced features.   Provides a sophisticated table layout system with support for:  - Flexible and fixed column widths and row heights  - Frozen columns and rows (sticky headers/footers)  - Viewport-based scrolling and clipping  -Span cells (cells that span multiple columns/rows)  - Dynamic sizing based on content or constraints   This render object handles the complex layout calculations needed for  tables with variable-sized cells, scrolling, and frozen regions.   See also:  - [TableSize], which defines sizing strategies for columns and rows  - [TableLayoutResult], which contains the computed layout dimensions"
 ---
 
 ```dart
@@ -38,7 +38,7 @@ class RenderTableLayout extends RenderBox with ContainerRenderObjectMixin<Render
   /// - [viewportSize] (Size?): Size of the visible viewport area
   ///
   /// Frozen cells remain visible during scrolling, useful for sticky headers.
-  RenderTableLayout({List<RenderBox>? children, required TableSizeSupplier width, required TableSizeSupplier height, required Clip clipBehavior, CellPredicate? frozenCell, CellPredicate? frozenRow, double? verticalOffset, double? horizontalOffset, Size? viewportSize});
+  RenderTableLayout({List<RenderBox>? children, required TableSizeSupplier width, required TableSizeSupplier height, required Clip clipBehavior, CellPredicate? frozenCell, CellPredicate? frozenRow, double? verticalOffset, double? horizontalOffset, Size? viewportSize, TextDirection textDirection = TextDirection.ltr});
   void setupParentData(RenderObject child);
   bool hitTestChildren(BoxHitTestResult result, {required Offset position});
   double computeMinIntrinsicWidth(double height);

@@ -1,6 +1,6 @@
 ---
 title: "Class: ColorHistoryGrid"
-description: "A grid widget that displays a history of previously used colors."
+description: "A grid widget that displays a history of previously used colors.   [ColorHistoryGrid] presents colors from a [ColorHistoryStorage] in a grid  layout, allowing users to quickly reuse recently selected colors. The grid  can highlight the currently selected color and supports custom layouts.   Example:  ```dart  ColorHistoryGrid(    storage: myColorHistory,    onColorPicked: (color) {      print('Selected from history: $color');    },    crossAxisCount: 8,  )  ```"
 ---
 
 ```dart
@@ -31,8 +31,10 @@ class ColorHistoryGrid extends StatelessWidget {
   final int crossAxisCount;
   /// The currently selected color to highlight.
   final Color? selectedColor;
+  /// The amount of colors to display in the history.
+  final int? maxTotalColors;
   /// Creates a [ColorHistoryGrid].
-  const ColorHistoryGrid({super.key, required this.storage, this.onColorPicked, this.spacing, this.crossAxisCount = 10, this.selectedColor});
+  const ColorHistoryGrid({super.key, required this.storage, this.onColorPicked, this.spacing, this.crossAxisCount = 10, this.selectedColor, this.maxTotalColors});
   Widget build(BuildContext context);
 }
 ```

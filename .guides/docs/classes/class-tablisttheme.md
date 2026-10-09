@@ -1,6 +1,6 @@
 ---
 title: "Class: TabListTheme"
-description: "Theme configuration for [TabList] appearance and behavior."
+description: "Theme configuration for [TabList] appearance and behavior.   TabListTheme defines the visual styling for tab list components including  border colors, indicator styling, and dimensional properties. All properties  are optional and fall back to theme defaults when not specified.   Example:  ```dart  ComponentTheme<TabListTheme>(    data: TabListTheme(      borderColor: Colors.grey,      borderWidth: 2.0,      indicatorColor: Colors.blue,      indicatorHeight: 3.0,    ),    child: TabList(...),  )  ```"
 ---
 
 ```dart
@@ -22,7 +22,7 @@ description: "Theme configuration for [TabList] appearance and behavior."
 ///   child: TabList(...),
 /// )
 /// ```
-class TabListTheme {
+class TabListTheme extends ComponentThemeData {
   /// Color of the bottom border line separating tabs from content.
   ///
   /// Type: `Color?`. If null, uses the theme's border color. This creates

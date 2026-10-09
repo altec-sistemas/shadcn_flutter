@@ -1,6 +1,6 @@
 ---
 title: "Class: RefreshTriggerTheme"
-description: "Theme configuration for [RefreshTrigger]."
+description: "Theme configuration for [RefreshTrigger].   Example usage:  ```dart  ComponentTheme(    data: RefreshTriggerTheme(      minExtent: 100.0,      maxExtent: 200.0,      curve: Curves.easeInOut,      completeDuration: Duration(milliseconds: 800),    ),    child: RefreshTrigger(      onRefresh: () async {        // Refresh logic here      },      child: ListView(        children: [          // List items        ],      ),    ),  )  ```"
 ---
 
 ```dart
@@ -27,7 +27,7 @@ description: "Theme configuration for [RefreshTrigger]."
 ///   ),
 /// )
 /// ```
-class RefreshTriggerTheme {
+class RefreshTriggerTheme extends ComponentThemeData {
   /// Minimum pull extent required to trigger refresh.
   final double? minExtent;
   /// Maximum pull extent allowed.

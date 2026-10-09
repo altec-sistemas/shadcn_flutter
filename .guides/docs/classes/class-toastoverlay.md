@@ -1,6 +1,6 @@
 ---
 title: "Class: ToastOverlay"
-description: "Abstract interface for controlling individual toast notification instances."
+description: "Abstract interface for controlling individual toast notification instances.   ToastOverlay provides methods for managing the lifecycle and state of  individual toast notifications after they have been displayed. Instances  are returned by [showToast] and passed to [ToastBuilder] functions.   The interface allows checking the current display state and programmatically  dismissing toast notifications, enabling responsive user interactions and  proper cleanup when needed."
 ---
 
 ```dart
@@ -31,12 +31,12 @@ abstract class ToastOverlay {
   ///   return AlertCard(
   ///     title: 'Auto-close',
   ///     trailing: IconButton(
-  ///       icon: Icon(Icons.close),
+  ///       icon: Icon(LucideIcons.x),
   ///       onPressed: overlay.close,
   ///     ),
   ///   );
   /// });
-  /// 
+  ///
   /// // Close programmatically after delay
   /// Timer(Duration(seconds: 2), toast.close);
   /// ```

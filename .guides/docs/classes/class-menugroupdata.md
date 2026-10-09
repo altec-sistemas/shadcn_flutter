@@ -1,6 +1,6 @@
 ---
 title: "Class: MenuGroupData"
-description: "Data class containing menu group state and configuration."
+description: "Data class containing menu group state and configuration.   Manages the hierarchical structure of menu groups, tracking parent-child  relationships, popover state, and layout properties. Used internally by  the menu system to coordinate behavior across nested menus."
 ---
 
 ```dart
@@ -44,7 +44,7 @@ class MenuGroupData {
   /// Checks if any child menu items have open popovers.
   ///
   /// Returns true if at least one child has an open submenu popover.
-  bool get hasOpenPopovers;
+  bool get hasOpenOverlays;
   /// Closes all open popovers in child menu items.
   ///
   /// Iterates through children and closes any open submenu popovers.

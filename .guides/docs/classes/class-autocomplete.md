@@ -1,6 +1,6 @@
 ---
 title: "Class: AutoComplete"
-description: "Intelligent autocomplete functionality with customizable suggestion handling."
+description: "Intelligent autocomplete functionality with customizable suggestion handling.   Provides real-time autocomplete suggestions in a popover overlay when used  with text input widgets. Supports multiple text replacement modes, keyboard  navigation, and theming customization. The widget wraps a child (typically  a text field) and displays filtered suggestions based on user input.   ## Features   - **Multiple completion modes**: append, replace word, or replace all text  - **Keyboard navigation**: arrow keys to navigate, tab/enter to accept  - **Customizable presentation**: popover positioning, sizing, and constraints  - **Smart suggestion filtering**: automatically manages suggestion visibility  - **Accessibility support**: proper focus management and keyboard shortcuts   The autocomplete behavior is controlled by the [mode] property and can be  customized per-instance or globally through [AutoCompleteTheme].   Example:  ```dart  AutoComplete(    suggestions: ['apple', 'apricot', 'banana', 'cherry'],    mode: AutoCompleteMode.replaceWord,    child: TextField(      decoration: InputDecoration(        hintText: 'Type to search fruits...',      ),    ),  )  ```"
 ---
 
 ```dart
@@ -52,21 +52,15 @@ class AutoComplete extends StatefulWidget {
   /// Overrides the theme default. Controls maximum/minimum dimensions of the
   /// suggestion list. When null, uses theme value or framework default.
   final BoxConstraints? popoverConstraints;
-  /// Width constraint strategy for the autocomplete popover.
-  ///
-  /// Overrides the theme default. Determines how popover width relates to
-  /// the anchor widget. When null, uses theme value or matches anchor width.
-  final PopoverConstraint? popoverWidthConstraint;
-  /// Alignment point on the anchor widget for popover attachment.
-  ///
-  /// Overrides the theme default. Specifies which edge/corner of the child
-  /// widget the popover aligns to. When null, uses theme or bottom-start.
-  final AlignmentDirectional? popoverAnchorAlignment;
-  /// Alignment point on the popover for anchor attachment.
-  ///
-  /// Overrides the theme default. Specifies which edge/corner of the popover
-  /// aligns with the anchor point. When null, uses theme or top-start.
-  final AlignmentDirectional? popoverAlignment;
+  /// Overrides the [OverlayConfiguration] used to present the suggestion
+  /// popover. When null, uses the theme value, or a default
+  /// [PopoverConfiguration] (`AlignmentDirectional.topStart` /
+  /// `AlignmentDirectional.bottomStart`, `PopoverConstraint.anchorFixedSize`).
+  final OverlayConfiguration? overlayConfiguration;
+  /// Whether the suggestion popover may adapt to a different presentation on
+  /// mobile platforms (see [showOverlay]'s `adaptive` parameter). Defaults to
+  /// `false` — the suggestion popup should always be a real anchored popover.
+  final bool? adaptiveOverlay;
   /// Text replacement strategy when a suggestion is selected.
   ///
   /// Overrides the theme default. Controls how selected suggestions modify
@@ -88,9 +82,8 @@ class AutoComplete extends StatefulWidget {
   /// - [suggestions] (`List<String>`, required): available autocomplete options
   /// - [child] (Widget, required): widget to receive autocomplete functionality
   /// - [popoverConstraints] (BoxConstraints?, optional): popover size limits
-  /// - [popoverWidthConstraint] (PopoverConstraint?, optional): width strategy
-  /// - [popoverAnchorAlignment] (AlignmentDirectional?, optional): anchor point
-  /// - [popoverAlignment] (AlignmentDirectional?, optional): popover align point
+  /// - [overlayConfiguration] (OverlayConfiguration?, optional): overrides the popover presentation
+  /// - [adaptiveOverlay] (bool?, optional): whether `adaptiveConversion` runs for this overlay
   /// - [mode] (AutoCompleteMode?, optional): text replacement strategy
   /// - [completer] (AutoCompleteCompleter, default: identity): suggestion processor
   ///
@@ -103,7 +96,7 @@ class AutoComplete extends StatefulWidget {
   ///   child: TextField(),
   /// )
   /// ```
-  const AutoComplete({super.key, required this.suggestions, required this.child, this.popoverConstraints, this.popoverWidthConstraint, this.popoverAnchorAlignment, this.popoverAlignment, this.mode, this.completer = _defaultCompleter});
+  const AutoComplete({super.key, required this.suggestions, required this.child, this.popoverConstraints, this.overlayConfiguration, this.adaptiveOverlay, this.mode, this.completer = _defaultCompleter});
   State<AutoComplete> createState();
 }
 ```

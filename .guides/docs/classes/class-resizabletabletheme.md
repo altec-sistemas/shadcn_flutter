@@ -1,6 +1,6 @@
 ---
 title: "Class: ResizableTableTheme"
-description: "Theme configuration for resizable tables."
+description: "Theme configuration for resizable tables.   Provides styling options for resizable table components including  the base table theme, resizer appearance, and interaction behavior.   Example:  ```dart  ResizableTableTheme(    tableTheme: TableTheme(...),    resizerThickness: 2.0,    resizerColor: Colors.blue,  )  ```"
 ---
 
 ```dart
@@ -17,7 +17,7 @@ description: "Theme configuration for resizable tables."
 ///   resizerColor: Colors.blue,
 /// )
 /// ```
-class ResizableTableTheme {
+class ResizableTableTheme extends ComponentThemeData {
   /// Base theme configuration for the table.
   final TableTheme? tableTheme;
   /// Thickness of the resize handle in pixels.

@@ -1,6 +1,6 @@
 ---
 title: "Class: MenubarTheme"
-description: "Theme configuration for [Menubar] appearance and layout."
+description: "Theme configuration for [Menubar] appearance and layout.   MenubarTheme defines the visual styling for menubar components including  borders, colors, positioning, and spacing. All properties are optional  and fall back to theme defaults when not specified.   The theme controls both the menubar container appearance and the behavior  of submenu positioning when menu items are opened.   Example:  ```dart  ComponentTheme<MenubarTheme>(    data: MenubarTheme(      border: true,      backgroundColor: Colors.white,      borderColor: Colors.grey,      borderRadius: BorderRadius.circular(8),      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),      subMenuOffset: Offset(0, 8),    ),    child: Menubar(...),  )  ```  Theme for [Menubar]."
 ---
 
 ```dart
@@ -28,7 +28,7 @@ description: "Theme configuration for [Menubar] appearance and layout."
 /// )
 /// ```
 /// Theme for [Menubar].
-class MenubarTheme {
+class MenubarTheme extends ComponentThemeData {
   /// Whether to draw a border around the menubar container.
   ///
   /// Type: `bool?`. If null, uses the widget's border property. When true,

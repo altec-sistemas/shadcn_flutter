@@ -1,6 +1,6 @@
 ---
 title: "Class: SwiperTheme"
-description: "Theme configuration for swiper overlay behavior and appearance."
+description: "Theme configuration for swiper overlay behavior and appearance.   Defines default properties for swiper components including overlay  behavior, drag interaction, surface effects, and visual styling.   Features:  - Configurable drag and expansion behavior  - Surface effects and backdrop styling  - Barrier and interaction customization  - Consistent theming across swiper variants   Example:  ```dart  ComponentThemeData(    data: {      SwiperTheme: SwiperTheme(        expands: true,        draggable: true,        barrierDismissible: true,        transformBackdrop: true,      ),    },    child: MyApp(),  )  ```"
 ---
 
 ```dart
@@ -29,7 +29,7 @@ description: "Theme configuration for swiper overlay behavior and appearance."
 ///   child: MyApp(),
 /// )
 /// ```
-class SwiperTheme {
+class SwiperTheme extends ComponentThemeData {
   /// Whether the swiper should expand to fill available space.
   final bool? expands;
   /// Whether the swiper can be dragged to dismiss.

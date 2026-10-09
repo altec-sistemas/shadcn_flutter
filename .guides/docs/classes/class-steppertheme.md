@@ -1,6 +1,6 @@
 ---
 title: "Class: StepperTheme"
-description: "Theme configuration for [Stepper] components."
+description: "Theme configuration for [Stepper] components.   Defines default values for stepper direction, size, and visual variant.  Applied through [ComponentTheme] to provide consistent styling across  stepper widgets in the application.   Example:  ```dart  ComponentTheme(    data: StepperTheme(      direction: Axis.vertical,      size: StepSize.large,      variant: StepVariant.circle,    ),    child: MyApp(),  );  ```"
 ---
 
 ```dart
@@ -21,7 +21,7 @@ description: "Theme configuration for [Stepper] components."
 ///   child: MyApp(),
 /// );
 /// ```
-class StepperTheme {
+class StepperTheme extends ComponentThemeData {
   /// Layout direction for the stepper.
   final Axis? direction;
   /// Size variant for step indicators.

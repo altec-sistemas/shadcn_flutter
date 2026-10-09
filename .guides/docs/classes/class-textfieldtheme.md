@@ -1,6 +1,6 @@
 ---
 title: "Class: TextFieldTheme"
-description: "Theme data for customizing [TextField] appearance."
+description: "Theme data for customizing [TextField] appearance.   This class defines the visual properties that can be applied to  [TextField] widgets, including border styling, fill state, padding,  and border radius. These properties can be set at the theme level  to provide consistent styling across the application."
 ---
 
 ```dart
@@ -10,7 +10,7 @@ description: "Theme data for customizing [TextField] appearance."
 /// [TextField] widgets, including border styling, fill state, padding,
 /// and border radius. These properties can be set at the theme level
 /// to provide consistent styling across the application.
-class TextFieldTheme {
+class TextFieldTheme extends ComponentThemeData {
   /// Border radius for text field corners.
   ///
   /// If `null`, uses default border radius from the theme.
